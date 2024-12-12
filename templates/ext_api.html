@@ -1,0 +1,444 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+
+    
+
+{% block seo %}    
+<title>Client Dashboard | Advance Dental Export</title>
+<meta name="description" content="Client Login" />
+<link rel="canonical" href="https://www.advancedentalexport.com/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Client Login" />
+<meta property="og:description" content="Client Login" />
+<meta property="og:url" content="https://www.advancedentalexport.com/" />
+<meta property="og:site_name" content="Client Login" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Client Login" />
+<meta name="twitter:title" content="Client Login" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+<link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+{% endblock seo %}
+
+{% block cl2 %}d-block{% endblock cl2 %}
+{% block cl %}d-none{% endblock cl %}
+                
+
+{% block css %}
+<style>
+    .btns{
+        padding: 7px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        /* width: 400px!important; */
+        background: #00a3c8;
+        color: white;
+        border: solid 1px #00a3c8;
+    }
+</style>
+{% endblock css %}
+    
+
+
+{% block body %}
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card p-3 ">
+                <span class="d-flex">
+                    <b>Name:</b> &nbsp; {{user.name}}
+               
+                </span>
+                
+                <span class="d-flex">
+                    <b> Address:</b> &nbsp; {{user.Address}}
+                </span>
+                
+                <span class="d-flex">
+                    <b> City:</b> &nbsp; {{user.City}}
+              
+                  </span>
+                  <span class="d-flex">
+                      <b>  State:</b> &nbsp; {{user.State}}
+                
+                   </span>
+                   <span class="d-flex">
+                    <b> Country:</b> &nbsp; {{user.Country}}
+              
+                  </span>
+                
+
+                <span class="d-flex">
+                <b>    Phone:</b> &nbsp; {{user.Mobile}}  
+                <br>
+                    
+                </span>
+               <span class="d-flex">
+               <b> Email:</b> &nbsp; {{user.Email}}
+                <br>
+               
+               </span>
+                
+              
+               <span class="d-flex">
+                <b> GST:</b> &nbsp; {{user.GST}}
+          
+              </span>
+            
+             
+            </div>
+          
+              
+        </div>
+    </div>
+</div>
+    
+ <!--Main element-->
+ <main role="main" class="col-md-12 ml-sm-auto col-lg-12 " style="margin-bottom: 60px;padding-top: 40px;">
+   <div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Order</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#buzz" role="tab" data-toggle="tab">Payment</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#references" role="tab" data-toggle="tab">Invoice</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#references2" role="tab" data-toggle="tab">Statements</a>
+          </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active show" id="profile">
+            <div class="card p-3">
+                <table id="myTable" class="display table table-striped">
+                    <thead>
+                       
+                        <tr>
+                           
+                            {% for key in order_key  %}
+                           <th>{{key}}</th>
+                           {% endfor %}
+                           <th>Action</th>    
+                        </tr>
+                        
+                           
+                    </thead>
+                    <tbody>
+                    {% for ie in order_data  %}
+                        <tr>
+                        {% for mykey, myvalue in ie.items %}
+
+                            <td id="">  {{myvalue}} </td>
+                    
+                       
+                        {% endfor %}
+                            
+
+                        
+                        <td>                        {% for mykey, myvalue in  ie.items %}
+
+                            <form action="{% url 'home:print_order' %}" method="GET" target="_blank">
+                                {% csrf_token %}
+                                
+                                {% if forloop.counter == 1 %}
+                                <input type="text" name="orderNo" class="d-none" value="{{myvalue}}">
+                                <input type="text" name="token" class="d-none" value="{{pk}}">
+                                <input type="submit" class="btns" value="Print">           
+                                {% endif %}
+                                
+                            </form> {% endfor %}
+                            
+                        </td>
+                       
+
+                    </tr>
+                       
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>    
+
+        </div>
+       <!-- payments -->
+        <div role="tabpanel" class="tab-pane fade" id="buzz">
+            <div class="card p-3">
+                <table id="myTable2" class="display table table-striped">
+                    <thead>
+                       
+                        <tr>
+                           
+                            {% for key in payment_key  %}
+                                <th>{{key}}</th>
+                            {% endfor %}
+                                
+                            <th>Print</th>
+                            
+                        </tr>
+            
+                           
+                    </thead>
+                    <tbody>
+                    {% for ie in payment_data  %}
+                        <tr>
+                        {% for mykey, myvalue in ie.items %}
+                    
+                            <td class="{{mykey}}" data-value="{{myvalue}}">  {{myvalue}} </td>
+                 
+                                    
+                       
+                        {% endfor %}
+                        
+                   
+                            <td>
+                                <form action="{% url 'home:print_payment' %}" target="_blank" method="GET">
+                                {% for mykey, myvalue in ie.items %}
+                                
+                                    {% csrf_token %}
+                                    {% if forloop.counter == 1 %}
+                                    <input type="text" name="receipt_no" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                    <input type="text" name="date" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 3 %}
+                                    <input type="text" name="payment_mode" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 4 %}
+                                    <input type="text" name="chq_no" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 5 %}
+                                    <input type="text" name="" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 6 %}
+                                    <input type="text" name="" class="d-none" value="{{myvalue}}">
+                                    {% endif %}
+                                    {% if forloop.counter == 7 %}
+                                    <input type="text" class="d-none" name="amount" value="{{myvalue}}">
+                                    <input type="text" class="d-none" value="{{user.name}}" name="doctor_id" id="">
+                                    <input type="text" class="d-none" value="{{pk}}" name="token" id="">
+                                    <input type="submit" class="btns" value="Print">
+                                    {% endif %}
+                                    
+                                    
+                               
+                                {% endfor %}
+                                </form>
+                            </td>
+                          
+                    </tr>
+                       
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>    
+
+        </div>
+        <!-- Invoice -->
+        <div role="tabpanel" class="tab-pane fade" id="references">
+            <div class="card p-3">
+                <table id="myTable3" class="display table table-striped">
+                    <thead>
+                       
+                        <tr>
+                           
+                            {% for key in invoice_key  %}
+                           <th >{{key}}</th>
+                           {% endfor %}
+                            <th>Action</th>
+                        </tr>
+            
+                           
+                    </thead>
+                    <tbody>
+                    {% for ie in invoice_data  %}
+                        <tr>
+                        {% for mykey, myvalue in ie.items %}
+                    
+                            <td class="{{mykey}}">  {{myvalue}} </td>
+                    
+                       
+                        {% endfor %}
+                        
+                        {% for mykey, myvalue in ie.items %}
+                        
+                            
+                            {% if forloop.counter == 1 %}
+                            
+                            <td class="{{mykey}} pb-3 pt-3">  
+                                <a  href="{% url 'home:print_invoice' pk=pk did=myvalue %}" target="_blank" class="btns"> Print </a>
+                            </td>
+        
+                            {% endif %}
+                    
+                        {% endfor %}
+                          
+                    </tr>
+                       
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+    <!-- Statements -->
+        <div role="tabpanel" class="tab-pane fade" id="references2">
+            <div class="card p-3">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="float-right">
+                            <a href="{% url 'home:print_statment' pk did %}" target="_blank" class="btns btn-success">Print</a>
+                        </div>
+                    </div>
+                </div>
+                <table id="myTable4" class="display table table-striped">
+                    <thead>
+                       
+                        <tr>
+                           
+                            {% for key in statement_key  %}
+                           <th>{{key}}</th>
+                           {% endfor %}
+                            
+                        </tr>
+            
+                           
+                    </thead>
+                    <tbody>
+                    {% for ie in statement_data  %}
+                        <tr>
+                        {% for mykey, myvalue in ie.items %}
+                    
+                            <td class="{{mykey}}">  {{myvalue}} </td>
+                    
+                       
+                        {% endfor %}
+                    </tr>
+                       
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="card p-4">
+                    <table class="table">
+                        <th>
+                            Debit Total: {{stb.DebitTotal}}
+                        </th>
+                        <th>
+                            CreditTotal: {{stb.CreditTotal}}
+                        </th>
+                        <th>
+                            ClosingTotal: {{stb.ClosingTotal}}
+                        </th>
+                    </table>
+                </div>
+
+            </div> 
+        </div>
+      
+    </div> 
+
+   </div>
+
+    
+</main>   
+
+{% endblock body %}
+    
+
+
+{% block js %}
+		<script>$('.clss').addClass('d-none');</script>
+        <script>$('.clss2').removeClass('d-none');</script>
+       
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script>
+        // Custom sorting plugin for DataTables to handle dates like "01 Mar 24"
+        $.fn.dataTable.ext.type.order['custom-date-dd-mmm-yy-pre'] = function (date) {
+            // Split the date into parts (e.g., ["01", "Mar", "24"])
+            var dateParts = date.split(' ');
+            
+            // Parse the day
+            var day = parseInt(dateParts[0], 10);
+        
+            // Define a map of month abbreviations to their numerical equivalents
+            var month = {
+                "Jan": 1, "Feb": 2, "Mar": 3, "Apr": 4,
+                "May": 5, "Jun": 6, "Jul": 7, "Aug": 8,
+                "Sep": 9, "Oct": 10, "Nov": 11, "Dec": 12
+            }[dateParts[1]];
+        
+            // Parse the year and adjust for 'yy' format (assuming dates in the 2000s)
+            var year = parseInt(dateParts[2], 10);
+            year += (year < 50) ? 2000 : 1900; // Adjust for century
+        
+            // Return a formatted date as yyyymmdd for proper sorting
+            return new Date(year, month - 1, day).getTime();
+        };
+            $(document).ready( function () {
+                
+                 $('#myTable').DataTable({
+                    "columnDefs": [
+                        { "targets": 1, "type": 'custom-date-dd-mmm-yy' }, // OrderDate column
+                        { "targets": 5, "type": 'custom-date-dd-mmm-yy' }  // OrderDueDate column
+                    ],
+                    "order": [[1, "desc"], [5, "desc"]] // You can modify to "desc" if needed
+                });
+                $('#myTable2').DataTable(
+                    {
+                        "order": []
+                    }
+                );
+                $('#myTable3').DataTable(
+                    {
+                        "order": []
+                    }
+                );
+                $('#myTable4').DataTable(
+                    {
+                        "order": []
+                    }
+                );
+            } );
+        </script>
+
+        <script>
+           window.onscroll = function(e) {
+            // print "false" if direction is down and "true" if up
+            $('.cl').addClass('d-none');
+            $('.cl2').removeClass('d-none');
+            }
+        </script>
+
+        <script>
+            $('.print_payment_pdf').click(function(){
+                var PaymentID  = $('.PaymentID').closest("[data-value]"); 
+                alert(PaymentID);
+            });
+        </script>
+       <script>
+        jQuery(window).scroll(function() {    
+                var scroll = jQuery(window).scrollTop();
+                if (scroll >= 100) {
+                    
+                    $('.clss').addClass('d-none');
+                    $('.clss2').removeClass('d-none');
+                }
+                else{
+                   
+                    $('.clss').addClass('d-none');
+                    $('.clss2').removeClass('d-none');
+                }
+        });
+       </script>
+        
+{% endblock js %}
+    

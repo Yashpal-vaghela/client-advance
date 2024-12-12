@@ -1,0 +1,72 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block seo %}    
+<title>Login</title>
+<meta name="description" content="Ade Client Login">
+{% endblock seo %}
+
+{% block css %}
+<style>
+    .header-btn2{
+        background:#1d907c!important;
+        color:white;
+        border: 0px;
+        padding:10px;
+        width:100%;
+        
+    }
+</style>
+{% endblock css %}
+    
+
+
+{% block body %}
+<hr>
+    <div class="container py-5">
+        <div class="content">
+            <div class="row">
+              
+                <div class="col-md-3"></div>  
+                <div class="col-md-6 p-3">
+                    <div class="login-content card mar-bottom-30 mar-top-30 ">
+                        <div class="login-title section-border  text-center mt-3 ">
+                            <h3>Client Login</h3></div>
+                        <div class="login-form section-border">
+                            <form action="" method="POST" class=" text-center pl-5 pr-5 pb-4">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control  mb-2 mt-2" name="username" placeholder="Enter username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control  mb-2 mt-2" name="password" placeholder="Enter password">
+                                </div>
+                                <div class="form-btn">
+                                    <input type="submit" class="header-btn2" value="LOGIN">
+                                </div>
+                            </form>
+                            
+                            <!-- <div class="form-group form-checkbox">
+                               <a href="#">Forgot password?</a></div> -->
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+            <div class="row">
+                  <div class="col-md-3"></div>
+                <div class="col-md-6 text-center">
+                    <div class="card p-3">
+                        In order to obtain your user credentials, kindly email us at <u><a href="mailto:info@advancedentalexport.com">info@advancedentalexport.com</a></u>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+    
+
+
+{% block javascript %}
+{% endblock javascript %}
+    

@@ -1,0 +1,264 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block seo %}
+<title>{% spaceless %}{{data.title}}{% endspaceless %}</title>
+<meta name="description" content="{% spaceless %}{{data.description}}{% endspaceless %}">
+<meta name="keyword" content="{% spaceless %}{{data.keyword}}{% endspaceless %}">
+<link rel="canonical" href="{% spaceless %}{{data.canonical}}{% endspaceless %}">
+<!-- Opengraphs -->
+<meta property="og:title" content="{% spaceless %}{{data.title}}{% endspaceless %}" />
+<meta property="og:type" content="{% spaceless %}{{data.og_type}}{% endspaceless %}" />
+<meta property="og:url" content="{% spaceless %}{{data.canonical}}{% endspaceless %}" />
+<meta property="og:image" content="{% spaceless %}{{data.image.url}}{% endspaceless %}" />
+
+<meta name="twitter:card" content="{% spaceless %}{{data.description}}{% endspaceless %}" />
+<meta name="twitter:site" content="@thegrandindianroute" />
+<meta name="twitter:title" content="{% spaceless %}{{data.title}}{% endspaceless %} " />
+<meta name="twitter:description" content="{% spaceless %}{{data.description}}{% endspaceless %}" />
+<meta name="twitter:image" content="{% spaceless %}{{data.image.url}}{% endspaceless %}" />    
+{% endblock seo %}
+
+{% block css %}
+<style>
+    p{
+        font-size: 18px;
+    }
+    .content p{
+        width: 100%!important;
+    }
+    .content ul,.content  ol{
+        padding-left: 25px!important;
+    }
+</style>
+{% endblock css %}
+    
+
+
+{% block body %}
+
+
+<!-- BREADCRUMB
+			============================================= -->
+			<div id="breadcrumb" class="division">
+				<div class="container">
+					<div class="row">						
+						<div class="col">
+							<div class=" breadcrumb-holder">
+
+								<!-- Breadcrumb Nav -->
+								<nav aria-label="breadcrumb">
+								  	<ol class="breadcrumb">
+								    	<li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+								    	<li class="breadcrumb-item active"><a href="{% url 'blog:blog' %}">Blogs</a></li>
+								    	
+								  	</ol>
+								</nav>
+
+								<!-- Title -->
+								<h4 class="h4-sm steelblue-color">{{data.h1}}</h4>
+
+							</div>
+						</div>
+					</div>  <!-- End row -->	
+				</div>	<!-- End container -->		
+			</div>	<!-- END BREADCRUMB -->	
+
+
+
+
+			<!-- BLOG PAGE CONTENT
+			============================================= -->
+			<div id="blog-page" class="wide-100 blog-page-section division">
+				<div class="container">
+				 	<div class="row">
+
+
+				 		<!-- BLOG POSTS HOLDER -->
+				 		<div class="col-lg-8">
+				 			<div class="posts-holder pr-30">
+
+                                <div class="single-blog-post pr-30">
+
+				 			
+                                    <!-- BLOG POST IMAGE -->
+                                    <div class="blog-post-img mb-40">
+                                       <img class="img-fluid" src="{{data.image.url}}" alt="{{data.h1}}">		
+                                    </div>	
+    
+   
+                                   <!-- BLOG POST TEXT -->
+                                   <div class="sblog-post-txt">
+                                    <h4 class="h4-lg steelblue-color">{{data.h1}}</h4>
+                                    <span>Posted {{data.published}} by <span>{{data.author}}</span></span>
+                                    
+                                        <div class="content mt-4">
+                                            
+                                        {{data.content|safe}}
+                                      
+                                        </div>
+                                       <!-- BLOG POST SHARE LINKS -->
+                                       <div class="post-share-links">
+   
+                                           <!-- POST TAGS -->
+                                           <div class="post-tags-list">
+                                              
+                                              {% for ie in data.tag.all %}
+                                              <span><a href="#">{{ie}}</a></span>	
+                                              
+                                              {% endfor %}
+                                                									
+                                           </div>
+   
+                                           <!-- POST SHARE ICONS -->
+                                           <div class="post-share-list">
+                                               <ul class="share-social-icons clearfix">	
+                                                   <li><a href="#" class="share-ico ico-facebook"><i class="fab fa-facebook-f"></i> Share</a></li>
+                                                   <li><a href="#" class="share-ico ico-twitter"><i class="fab fa-twitter"></i> Tweet</a></li>	
+                                                   <li><a href="#" class="share-ico ico-google-plus"><i class="fab fa-pinterest-p"></i> Pin It</a></li>					
+                                                   <li><a href="#" class="share-ico ico-google-plus"><i class="fab fa-instagram"></i> Share</a></li>
+                                               </ul>
+                                           </div>
+   
+                                       </div>	<!-- END BLOG POST SHARE -->
+
+   
+                                   </div>	<!-- END BLOG POST TEXT -->
+   
+   
+                                   <!-- ABOUT POST AUTHOR -->
+                                   <div class="author-senoff">
+                                       
+                                       <!-- Avatar -->	
+                                       <img src="{{data.author.image.url}}" alt="{{data.author}}">
+   
+                                       <!-- Text -->
+                                       <div class="author-senoff-txt">
+   
+                                           <!-- Title -->
+                                           <h5 class="h5-sm steelblue-color">Published by {{data.author}}</h5>
+                                           <p>{{data.author.description|safe}}
+                                           </p>
+   
+                                       </div>
+   
+                                   </div>	<!-- END ABOUT POST AUTHOR -->
+   
+   
+                                   <!-- RELATED POSTS -->
+                                   <div class="related-posts">
+   
+                                       <!-- Title -->	
+                                       <h5 class="h5-md steelblue-color">Related Posts</h5>	
+   
+   
+                                       <div class="row">
+                                            {% for ie in data1 %}
+                                             <!-- BLOG POST #1 -->
+                                             <div class="col-md-6">
+                                              <!-- BLOG POST #1 --> 
+                                                    <div class="blog-post">
+                                            
+                                                        <!-- BLOG POST IMAGE -->
+                                                        <div class="blog-post-img">
+                                                        <img class="img-fluid" src="{{ie.image.url}}" alt="{{ie.h1}}" />	
+                                                    </div>
+
+                                                        <!-- BLOG POST TITLE -->
+                                                    <div class="blog-post-txt">
+
+                                                        <!-- Post Title -->
+                                                        <h5 class="h5-xl steelblue-color">
+                                                            <a href="{% url 'blogd' ie.slug %}">{{ie.h1}}</a></h5>
+
+                                                        <!-- Post Data -->
+                                                        <span>{{ie.published}} by <span>{{ie.author}}</span></span>
+
+                                                        <!-- Post Text -->
+                                                        <p>{{ie.description}} ...
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>	
+                                            </div>	<!-- END  BLOG POST #1 -->
+                                          {% endfor %}
+                                            
+   
+   
+                                     
+   
+                                       </div>	<!-- End row -->
+   
+                                   </div>	<!-- END RELATED POSTS -->
+   
+                                   <hr>
+                                  
+   
+   
+                                   <!-- COMMENT FORM -->
+                                   <div id="leave-comment">
+                                       
+                                       <!-- Title -->
+                                       <h5 class="h5-md steelblue-color">Leave a Comment</h5>
+                                       
+                                       <!-- Text -->
+                                       <p class="grey-color">Your email address will not be published. Required fields are marked *</p>
+   
+                                       <form name="commentForm" class="row comment-form" novalidate="novalidate">
+   
+                                           <div id="input-message" class="col-md-12 input-message">
+                                               <p>Add Comment *</p>
+                                               <textarea class="form-control message" name="message" rows="6" placeholder="Enter Your Comment Here* ..." required=""></textarea>
+                                           </div> 
+                                                               
+                                           <div id="input-name" class="col-md-12">
+                                               <p>Name*</p>
+                                               <input type="text" name="name" class="form-control name" placeholder="Enter Your Name*" required=""> 
+                                           </div>
+                                                   
+                                           <div id="input-email" class="col-md-12">
+                                               <p>Email*</p>
+                                               <input type="text" name="email" class="form-control email" placeholder="Enter Your Email*" required=""> 
+                                           </div>
+                                                            
+                                           <!-- Contact Form Button -->
+                                           <div class="col-lg-12 mt-15 form-btn"> 						                 
+                                               <button type="submit" class="btn btn-blue blue-hover submit">Post Comment</button> 
+                                           </div>
+                                                                                         
+                                           <!-- Contact Form Message -->
+                                           <div class="col-md-12 comment-form-msg text-center">
+                                               <div class="sending-msg"><span class="loading"></span></div>
+                                           </div>  
+                                                                     
+                                       </form>									
+                                   
+                                   </div>	<!-- END COMMENT FORM -->
+   
+   
+                                </div>
+
+				 			</div>
+				 		</div>	 <!-- END BLOG POSTS HOLDER -->
+
+
+
+						{% include 'aside.html' %}
+				 		
+				 	</div>	<!-- End row -->	
+				 </div>	 <!-- End container -->
+			</div>	<!-- END BLOG PAGE CONTENT -->
+
+
+
+
+{% endblock body %}
+    
+
+
+{% block javascript %}
+
+{% endblock javascript %}
+    

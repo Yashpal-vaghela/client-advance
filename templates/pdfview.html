@@ -1,0 +1,45 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block seo %}    
+<title></title>
+<meta name="description" content="" />
+<link rel="canonical" href="https://www.myoneblog.com/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://www.myoneblog.com/" />
+<meta property="og:site_name" content="My One Blog" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:title" content="" />
+
+{% endblock seo %}
+
+{% block css %}
+{% endblock css %}
+    
+
+
+{% block body %}
+{{data}}
+<section>
+    <div class="container">
+        <div class="row mt-5 pb-5">
+            <div class="col-12">
+                <a class="form-btn" href="{{link}}" target="_blank"> <u>Open In External Tab</u> </a>
+                <iframe src="{{link}}"
+                width="100%" height="900"> </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
+    
+
+
+{% block javascript %}
+		
+{% endblock javascript %}
+    

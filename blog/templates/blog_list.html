@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block seo %}
+<title>All Blogs - The Advance Dental Export</title>
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="All Blogs - The Advance Dental Export">
+<meta property="og:description" content="The best collection of all the blogs delivering valueable insights on Digital Dentistry.">
+<meta property="og:url" content="Article">
+<meta property="og:site_name" content="All Blogs - The Advance Dental Export">
+<meta property="article:publisher" content="">
+<meta property="article:section" content="Blog">
+<meta property="og:image" content="{% static 'seo/blog/b125/8.jpg' %}">
+<meta property="og:image:secure_url" content="{% static 'seo/blog/b125/8.jpg' %}">
+<meta property="og:image:width" content="327">
+<meta property="og:image:height" content="218">
+<meta property="og:image:alt" content="All Blogs - The Advance Dental Export">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="The best collection of blogs delivering valueable insights on Digital Dentistry.">
+<meta name="twitter:title" content="All Blogs - The Advance Dental Export">
+<meta name="twitter:image" content="{% static 'seo/blog/b125/8.jpg' %}">
+<style>
+   .row{
+       padding: 0!important;margin:0!important ;
+   }
+</style>
+{% endblock seo %} 
+{% block css %}
+{% endblock css %}
+    
+
+
+{% block body %}
+<section class="breadcrumb-outer text-center">
+	<div class="container">
+		<div class="breadcrumb-content">
+			<h2 class="white">All  Blogs</h2>
+			<nav aria-label="breadcrumb">
+				<ul class="breadcrumb">
+					<li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Blogs</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="overlay"></div>
+</section>
+<section class="blog blog-fullwidth">
+	<div class="container">
+		<div class="row">
+			
+            {% for ie in data %}
+            <div class="col-lg-4 col-12 mar-bottom-30 mansonry-item">
+				<div class="grid">
+					<div class="grid-item">
+						<div class="grid-image"><img src="{{ie.image.url}}" alt="{{ie.h1}}">
+							<div class="overlay"></div>
+						</div>
+						<div class="gridblog-content">
+							<h3><a href="{% url 'blog_detail' ie.slug %}">{{ie.h1}}</a></h3>
+							<p>
+                                {{ie.description}}
+                            </p><a href="{% url 'blog_detail' ie.slug %}" class="biz-btn biz-btn1">Read More</a></div>
+					</div>
+				</div>
+			</div>
+            {% endfor %}
+          
+		</div>
+		
+	</div>
+</section>
+
+<div class="col-md-12">
+    <div class="blog-button text-center col-md-12">
+        {% if data.has_other_pages %}
+        <div class="pagination-content text-center">
+            <ul class="pagination">
+                {% if data.has_previous %}
+                <li > <a href="?page={{ data.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                {% else %}
+                <li ><a href="javascript:void(0)"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                {% endif %}
+                
+                {% for i in data.paginator.page_range %}
+                    {% if data.number == i %}
+                    <li class="active"> <a href="javascript:void(0);" class="bg-primary">{{i}} </a>
+                    </li>
+                    {% elif i > data.number|add:'-7' and i < data.number|add:'7' %}
+                    <li><a href="?page={{ i }}"> {{i}} </a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if data.has_next %}
+                <li><a href="?page={{ data.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                {% else %}
+                <li><a href="javascript:void(0)"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+{% endblock body %}
+    
+
+
+{% block javascript %}
+{% endblock javascript %}
+    

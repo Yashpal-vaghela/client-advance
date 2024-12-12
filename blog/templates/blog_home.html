@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% load static %}
+ {% block seo %}
+ <title>Blogs | Advance Dental Export </title>
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blogs | Advance Dental Export ">
+<meta property="og:description" content="The best collection of blogs delivering valueable insights on Dental Industry & More.">
+<meta property="og:url" content="Article">
+<meta property="og:site_name" content="Advance Dental Export ">
+<meta property="article:section" content="Blog">
+<meta property="og:image" content="{% static 'seo/blog/b125/8.jpg' %}">
+<meta property="og:image:secure_url" content="{% static 'seo/blog/b125/8.jpg' %}">
+<meta property="og:image:width" content="327">
+<meta property="og:image:height" content="218">
+<meta property="og:image:alt" content="Blogs | Advance Dental Export ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="The best collection of blogs delivering valueable insights on Dental Industry & More.">
+<meta name="twitter:title" content="Blogs | Advance Dental Export ">
+<meta name="twitter:image" content="{% static 'seo/blog/b125/8.jpg' %}">
+{% endblock seo %} 
+{% block css %} {% endblock css %}
+{% block body %}
+<!-- BREADCRUMB
+			============================================= -->
+			<div id="breadcrumb" class="division">
+				<div class="container">
+					<div class="row">						
+						<div class="col">
+							<div class=" breadcrumb-holder">
+
+								<!-- Breadcrumb Nav -->
+								<nav aria-label="breadcrumb">
+								  	<ol class="breadcrumb">
+								    	<li class="breadcrumb-item"><a href="{% url 'home:home' %}">Home</a></li>
+								    	<li class="breadcrumb-item active" aria-current="page">Our Blogs & Latest News</li>
+								  	</ol>
+								</nav>
+
+								<!-- Title -->
+								<h4 class="h4-sm steelblue-color">Our Blogs & Latest News</h4>
+
+							</div>
+						</div>
+					</div>  <!-- End row -->	
+				</div>	<!-- End container -->		
+			</div>	<!-- END BREADCRUMB -->	
+
+
+
+
+			<!-- BLOG PAGE CONTENT
+			============================================= -->
+			<div id="blog-page" class="wide-100 blog-page-section division">
+				<div class="container">
+				 	<div class="row">
+
+
+				 		<!-- BLOG POSTS HOLDER -->
+				 		<div class="col-lg-8">
+				 			<div class="posts-holder pr-30">
+
+
+				 				<div class="row">
+									
+									{% for ie in data  %}
+									<div class="col-md-6">
+										<!-- BLOG POST #1 --> 
+										<div class="blog-post">
+								
+											<!-- BLOG POST IMAGE -->
+											<div class="blog-post-img">
+											<img class="img-fluid" src="{{ie.image.url}}" alt="{{ie.h1}}" />	
+										</div>
+
+											<!-- BLOG POST TITLE -->
+										<div class="blog-post-txt">
+
+											<!-- Post Title -->
+											<h5 class="h5-xl steelblue-color">
+												<a href="{% url 'blogd' ie.slug %}">{{ie.h1}}</a></h5>
+
+											<!-- Post Data -->
+											<span>{{ie.published}} by <span>{{ie.author}}</span></span>
+
+											<!-- Post Text -->
+											<p>{{ie.description}} ...
+											</p>
+
+										</div>
+
+									</div>	
+									<!-- END BLOG POST #1 --> 
+
+									</div>
+									{% endfor %}
+									{% if data.has_other_pages %}
+								<!-- BLOG PAGE PAGINATION -->
+								<div class="blog-page-pagination b-top justify-content-center col-12">
+									<nav aria-label="Page navigation justify-content-center ">
+										<ul class="pagination justify-content-center primary-theme ">
+											{% if data.has_previous %}
+											<li class="page-item disabled"><a class="page-link" href="?page={{ data.previous_page_number }}" tabindex="-1"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+											{% else %}
+											<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+											{% endif %}
+											{% for i in data.paginator.page_range %}
+											{% if data.number == i %}
+											<li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
+										    {% else %}
+											<li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a> </li>
+											{% endif %}
+											{% endfor %}
+											{% if data.has_next %}
+											<li class="page-item next-page"><a class="page-link" href="?page={{ data.next_page_number }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+											{% else %}
+											<li class="page-item next-page"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+											{% endif %}
+										</ul>	
+	 								</nav>					
+								</div>
+								{% endif %}	
+								</div>
+								
+
+
+				 			</div>
+				 		</div>	 <!-- END BLOG POSTS HOLDER -->
+
+
+
+						{% include 'aside.html' %}
+				 		
+				 	</div>	<!-- End row -->	
+				 </div>	 <!-- End container -->
+			</div>	<!-- END BLOG PAGE CONTENT -->
+
+
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

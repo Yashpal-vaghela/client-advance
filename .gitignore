@@ -1,0 +1,19 @@
+no# Ignore virtual environment
+venv/
+
+# Ignore SQL files
+*.sql
+
+# Ignore cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore environment variables
+.env
+# Ignore static files
+staticfiles/
+media/
